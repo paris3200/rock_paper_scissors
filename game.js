@@ -35,3 +35,14 @@ function playRound(playerSelection, computerSelection) {
 
   return result;
 };
+
+function game() {
+  for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt("Enter your move: ")
+    let computerSelection = getComputerChoice()
+
+    console.log(playRound(playerSelection, computerSelection));
+  }
+}
+
+game()
