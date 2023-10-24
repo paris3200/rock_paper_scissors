@@ -36,13 +36,74 @@ function playRound(playerSelection, computerSelection) {
   return result;
 };
 
-function game() {
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Enter your move: ")
-    let computerSelection = getComputerChoice()
+function increment_counter(winner){
+  const counter = document.getElementById(winner + 'Counter');
+  let currentCount = parseInt(counter.textContent);
+  counter.textContent = ++currentCount;
 
-    console.log(playRound(playerSelection, computerSelection));
+  if (currentCount == 5){
+    gameOver(winner)
   }
+}
+
+function gameOver(winner){
+  h1 = document.getElementById('winner');
+  if (winner == "computer"){
+    h1.textContent = "Game over! The computer won."
+  }else{
+    h1.textContent = "Game over! You win!"
+  }
+
+  const playerCounter = document.getElementById('playerCounter');
+  playerCounter.textContent = 0;
+
+  const computerCounter = document.getElementById('computerCounter');
+  computerCounter.textContent = 0;
+}
+
+function game() {
+  let computerSelection = getComputerChoice()
+  let playerSelection = ""
+  let result = ""
+
+  const resultParagraph = document.getElementById('result');
+  const rock = document.getElementById('rock');
+  const paper = document.getElementById('paper');
+  const scissors = document.getElementById('scissors');
+
+  rock.addEventListener('click', () => {
+    playerSelection = "rock";
+    result = playRound(playerSelection, computerSelection);
+    if (result.includes("Win")){
+      increment_counter("player")
+    }else if (result.includes("Lose")){
+      increment_counter("computer")
+    }
+
+    resultParagraph.textContent = result
+  })
+
+  paper.addEventListener('click', () => {
+    playerSelection = "paper";
+    result = playRound(playerSelection, computerSelection);
+    if (result.includes("Win")){
+      increment_counter("player")
+    }else if (result.includes("Lose")){
+      increment_counter("computer")
+    }
+    resultParagraph.textContent = result
+  })
+
+  scissors.addEventListener('click', () => {
+    playerSelection = "scissors";
+    result = playRound(playerSelection, computerSelection);
+    if (result.includes("Win")){
+      increment_counter("player")
+    }else if (result.includes("Lose")){
+      increment_counter("computer")
+    }
+    resultParagraph.textContent = result
+  })
 }
 
 game()
